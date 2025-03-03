@@ -4,8 +4,8 @@ import logo from '../assets/logo.png';
 const Nav = (props) => {
     const navigate = useNavigate();
 
-    const goBack = _ => navigate("/");
-    const handleLink = _ => navigate(pageLink);
+    const home = _ => navigate("/");
+    const menu = _ => navigate("/menu");
 
     return(
         <div className="nav">
@@ -13,8 +13,8 @@ const Nav = (props) => {
                 <img src={logo} alt="Logo" />
             </div>
             <div className="right-header">
-                <p>Menu</p>
-                <p>Gallery</p>
+                <p onClick={home}>Home</p>
+                <p onClick={menu}>Menu</p>
                 <p>Order Online</p>
             </div>
         </div>

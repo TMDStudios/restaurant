@@ -22,8 +22,6 @@ body {
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid snow;
-  margin-bottom: 1rem;
 }
 
 .left-header, .right-header {
@@ -45,7 +43,6 @@ body {
 
 .right-header p {
   font-size: 1.2rem;
-  width: 100%;
   text-align: center;
   width: 15ch;
   color: rgb(112 146 190);;
@@ -54,15 +51,8 @@ body {
   padding: 4px 0;
 }
 
-.right-header p:hover {
-  cursor: pointer;
-  color: snow;
-  border: 1px solid rgb(33 33 33);
-  background-color: rgba(33 33 33 / 75%);
-}
-
 .content {
-  height: 66vh;
+  height: 70vh;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -75,7 +65,7 @@ body {
 
 .content img {
   vertical-align: top;
-  width: 400px;
+  height: 32vh;
   border-radius: 4px;
 }
 
@@ -107,13 +97,18 @@ body {
   color: rgba(33 33 33 / 50%);
 }
 
-.right p {
-  margin: 0.5rem 0;
+.right h3, .right h4 {
+  margin-bottom: 0.66rem;
+}
+
+.hours {
+  padding: 0.5rem 0;
 }
 
 .map {
+  margin-top: 1rem;
   width: 100%;
-  flex-grow: 1;
+  height: 60%;
 }
 
 .map iframe {
@@ -125,12 +120,11 @@ body {
 
 .footer {
   width: 1080px;
-  height: 15vh;
+  height: 12vh;
   position: absolute;
-  bottom: 0;
+  bottom: 4vh;
   left: 50%;
   transform: translateX(-50%);
-  padding-bottom: 8px;
 }
 
 .footer div {
@@ -157,8 +151,32 @@ body {
   border-radius: 50%;
 }
 
+.menu {
+  text-align: center;
+  height: 70vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sub-heading {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.menu p {
+  margin-bottom: 1rem;
+}
+
 .footer img:hover {
   cursor: pointer;
   border: 1px solid rgb(33 33 33);
   border-radius: 50%;
+}
+
+.right-header p:hover {
+  cursor: pointer;
+  color: snow;
+  border: 1px solid rgb(33 33 33);
+  background-color: rgba(33 33 33 / 75%);
 }
