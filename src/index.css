@@ -151,7 +151,7 @@ body {
   border-radius: 50%;
 }
 
-.menu {
+.menu, .order {
   text-align: center;
   height: 70vh;
   overflow-y: scroll;
@@ -179,4 +179,112 @@ body {
   color: snow;
   border: 1px solid rgb(33 33 33);
   background-color: rgba(33 33 33 / 75%);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.dishes {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dish-category {
+  margin: 1rem;
+}
+
+.dish-card {
+  width: 45%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(112 146 190 / 10%);
+  border: 1px rgba(0 0 0 / 0%) solid;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dish-card h3, .dish-card p {
+  text-align: start;
+}
+
+.image-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dish-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  padding: 1rem;
+}
+
+.dialog-left, .dialog-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dialog-left {
+  width: 8ch;
+}
+
+.dialog-right {
+  flex: 4;
+}
+
+.dialog-container label {
+  padding: 4px 0;
+}
+
+.dialog-container input, .dialog-container textarea {
+  border: 1px solid rgb(112 146 190);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.dialog-container textarea {
+  height: 5rem;
+}
+
+.dialog-button {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 4px;
+  background-color: rgba(112 146 190 / 25%);
+  border: 1px rgba(0 0 0 / 0%) solid;
+  border-radius: 4px;
+}
+
+.dish-card:hover {
+  cursor: pointer;
+  border: 1px solid rgb(112 146 190);
+}
+
+.dialog-button:hover {
+  cursor: pointer;
+  background-color: rgba(112 146 190 / 50%);
+  border: 1px rgb(112 146 190) solid;
 }

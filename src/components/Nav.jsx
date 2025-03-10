@@ -6,6 +6,7 @@ const Nav = (props) => {
 
     const home = _ => navigate("/");
     const menu = _ => navigate("/menu");
+    const order = _ => navigate("/order");
 
     return(
         <div className="nav">
@@ -15,7 +16,8 @@ const Nav = (props) => {
             <div className="right-header">
                 <p onClick={home}>Home</p>
                 <p onClick={menu}>Menu</p>
-                <p>Order Online</p>
+                <p onClick={order}>Order Online</p>
+                <p>Cart</p>
             </div>
         </div>
     )
