@@ -2,7 +2,7 @@
 
 [![Deployment Badge](https://img.shields.io/badge/deployment-GitHub-black)](https://tmdstudios.github.io/restaurant)
 
-![Zen Logo](/media/logo.png)
+![Zen Logo](/src/assets/logo.png)
 
 This is a demo restaurant website showcasing a modern and elegant design for dining establishments. If you'd like a custom website for your restaurant, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/alminpiric/ 'LinkedIn').
 
