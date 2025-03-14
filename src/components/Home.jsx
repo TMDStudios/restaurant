@@ -1,7 +1,14 @@
 import restaurant1 from '../assets/restaurant1.png';
 import restaurant2 from '../assets/restaurant2.png';
+import { useEffect, useContext } from "react";
+import { MyContext } from '../App';
 
-const Home = (props) => {
+const Home = () => {
+    const {handleCartButton} = useContext(MyContext);
+
+    useEffect(() => {
+        handleCartButton();
+    }, []);
 
     return(
         <div className='content'>

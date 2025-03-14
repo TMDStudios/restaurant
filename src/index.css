@@ -41,14 +41,20 @@ body {
   height: 100%;
 }
 
-.right-header p {
+.nav-button {
   font-size: 1.2rem;
   text-align: center;
   width: 15ch;
-  color: rgb(112 146 190);;
+  color: rgb(112 146 190);
   border: 1px solid rgb(112 146 190);
   border-radius: 4px;
   padding: 4px 0;
+}
+
+.cart-button {
+  background-color: rgba(0 150 255 / 50%);
+  color: rgb(33 33 33);
+  border: 1px solid rgb(0 150 255);
 }
 
 .content {
@@ -151,12 +157,129 @@ body {
   border-radius: 50%;
 }
 
-.menu, .order {
+.menu, .order, .cart {
   text-align: center;
   height: 70vh;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.cart h3 {
+  margin: 0.5rem;
+}
+
+.cart-dish-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 60%;
+  background-color: rgba(112 146 190 / 10%);
+  border: 1px rgba(0 0 0 / 0%) solid;
+  border-radius: 4px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.cart-dish-card div {
+  display: flex;
+  width: 100%;
+}
+
+.cart-dish-card-amount {
+  width: 3ch;
+}
+
+.cart-dish-card-price {
+  text-align: end;
+  flex: 4;
+  padding-bottom: 0.5rem;
+}
+
+.cart-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.cancel, .confirm {
+  text-align: center;
+  width: 15ch;
+  color: rgb(112 146 190);
+  border: 1px solid rgb(112 146 190);
+  border-radius: 4px;
+  padding: 4px 0;
+}
+
+.cancel {
+  color: darkred;
+  border: 1px solid darkred;
+}
+
+.cart hr {
+  width: 60%;
+  margin: auto;
+}
+
+.cart-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 60%;
+  padding: 1rem;
+  margin: auto;
+}
+
+.cart-inputs-left, .cart-inputs-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cart-inputs-left {
+  width: 8ch;
+  text-align: start;
+}
+
+.cart-inputs-right {
+  flex: 4;
+}
+
+.cart-inputs label {
+  padding: 3px 0;
+}
+
+.cart-inputs input, .cart-inputs textarea {
+  border: 1px solid rgb(112 146 190);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.cart-inputs textarea {
+  height: 5rem;
+}
+
+.order-total {
+  font-weight: bold;
+}
+
+.dish-options {
+  font-style: italic;
+  padding-top: 1rem;
+}
+
+.gluten-free, .vegan {
+  color: rgb(0 140 255);
+  font-weight: bold;
+}
+
+.vegan {
+  color: green;
+  font-weight: bold;
 }
 
 .sub-heading {
@@ -283,7 +406,7 @@ body {
   border: 1px solid rgb(112 146 190);
 }
 
-.dialog-button:hover {
+.dialog-button:hover, .cart-buttons button:hover {
   cursor: pointer;
   background-color: rgba(112 146 190 / 50%);
   border: 1px rgb(112 146 190) solid;

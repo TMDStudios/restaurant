@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png';
 
 const Nav = (props) => {
@@ -7,6 +7,7 @@ const Nav = (props) => {
     const home = _ => navigate("/");
     const menu = _ => navigate("/menu");
     const order = _ => navigate("/order");
+    const cart = _ => navigate("/cart");
 
     return(
         <div className="nav">
@@ -14,10 +15,10 @@ const Nav = (props) => {
                 <img src={logo} alt="Logo" />
             </div>
             <div className="right-header">
-                <p onClick={home}>Home</p>
-                <p onClick={menu}>Menu</p>
-                <p onClick={order}>Order Online</p>
-                <p>Cart</p>
+                <p className='nav-button' onClick={home}>Home</p>
+                <p className='nav-button' onClick={menu}>Menu</p>
+                <p className='nav-button' onClick={order}>Order Online</p>
+                <p className='nav-button' id='cart-button' onClick={cart}>Cart</p>
             </div>
         </div>
     )

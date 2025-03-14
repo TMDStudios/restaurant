@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { Dialog, DialogContent, DialogTitle, CircularProgress } from "@mui/material";
+import { MyContext } from '../App';
+import Cookies from "js-cookie";
 
 import bagel from '../assets/bagel.png';
 import bowl from '../assets/bowl.png';
@@ -13,19 +16,21 @@ import salad from '../assets/salad.png';
 import salmon from '../assets/salmon.png';
 
 const Order = () => {
+    const {orderItems, setOrderItems, handleCartButton} = useContext(MyContext);
     const [dishes, setDishes] = useState([]);
-    const [orderItems, setOrderItems] = useState([]);
     const [selectedDish, setSelectedDish] = useState(null);
     const [amount, setAmount] = useState(1);
     const [comment, setComment] = useState("");
     const [open, setOpen] = useState(false);
-    const [clientIp, setClientIp] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const [categories] = useState(['Lunch Specials', 'Starters', 'Entrées', 'Desserts', 'Drinks'])
-    const [images] = useState([bagel, bowl, bowl2, burger, cookies, eggs, pizza, salad, salmon])
+    const [categories] = useState(['Lunch Specials', 'Starters', 'Entrées', 'Desserts', 'Drinks']);
+    const [images] = useState([bagel, bowl, bowl2, burger, cookies, eggs, pizza, salad, salmon]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
+        handleCartButton();
         setLoading(true);
         axios
             .get("https://alminpiric.pythonanywhere.com/api/dishes/get/")
@@ -37,11 +42,17 @@ const Order = () => {
                 console.error("Error fetching dishes:", error);
                 setLoading(false);
             });
-
-        axios.get("https://alminpiric.pythonanywhere.com/api/get_ip/")
-            .then((response) => setClientIp(response.data.ip))
-            .catch((error) => console.error("Error fetching IP:", error));
     }, []);
+
+    useEffect(() => {
+        if(orderItems.length > 0){
+            Cookies.set("orderItems", JSON.stringify(orderItems), { expires: 1 });
+            document.getElementById('cart-button').classList.add('cart-button');
+        }else{
+            Cookies.remove("orderItems");
+            document.getElementById('cart-button').classList.remove('cart-button');
+        }
+    }, [orderItems]);
 
     const handleOpen = (dish) => {
         setSelectedDish(dish);
@@ -53,38 +64,31 @@ const Order = () => {
     const handleClose = () => setOpen(false);
 
     const addDishToOrder = () => {
-        setOrderItems((prev) => [
-            ...prev,
-            { dish: selectedDish, amount, comment, price: selectedDish.price * amount },
-        ]);
+        setOrderItems((prev) => {
+            const existingItemIndex = prev.findIndex(item => item.dish.id === selectedDish.id);
+
+            if(existingItemIndex !== -1){
+                const updatedOrder = [...prev];
+                updatedOrder[existingItemIndex] = {
+                    ...updatedOrder[existingItemIndex],
+                    amount: updatedOrder[existingItemIndex].amount + amount,
+                    price: (updatedOrder[existingItemIndex].amount + amount) * selectedDish.price,
+                    comment: updatedOrder[existingItemIndex].comment 
+                        ? `${updatedOrder[existingItemIndex].comment}; ${comment}`
+                        : comment
+                };
+                return updatedOrder;
+            } 
+            
+            return [...prev, { dish: selectedDish, amount, comment, price: selectedDish.price * amount }];
+        });
         handleClose();
     };
-
+    
 
     const createOrder = () => {
-        const orderData = {
-            customer_name: "Sam Smith", //TEMP
-            customer_phone: "111-555-2222", //TEMP
-            comment: "", //TEMP
-            order_dishes: orderItems.map((item) => ({
-                dish: item.dish.id,
-                amount: item.amount,
-                comment: item.comment,
-            })),
-            tax: 2, //TEMP
-            total: 4, //TEMP
-            ip_address: clientIp,
-        };
-
-        axios
-            .post("https://alminpiric.pythonanywhere.com/api/orders/new/", orderData)
-            .then((response) => {
-                console.log("Order created:", response.data);
-                setOrderItems([]);
-            })
-                .catch((error) => console.error("Error creating order:", error));
+        navigate("/cart");
     };
-
 
     return (
         <div className="order">
@@ -141,20 +145,6 @@ const Order = () => {
                             <button className="dialog-button" onClick={addDishToOrder}>Add to Order</button>
                         </DialogContent>
                     </Dialog>
-
-                    {orderItems.length > 0 && (
-                        <div>
-                            <h3>Order Summary</h3>
-                            <ul>
-                                {orderItems.map((item, index) => (
-                                    <li key={index}>
-                                        {item.amount} x {item.dish.name} ({item.comment || "No comment"})
-                                    </li>
-                                ))}
-                            </ul>
-                            <button onClick={createOrder}>Submit Order</button>
-                        </div>
-                    )}
                 </div>
             )}
         </div>
