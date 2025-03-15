@@ -64,6 +64,10 @@ const Order = () => {
     const handleClose = () => setOpen(false);
 
     const addDishToOrder = () => {
+        if(!amount || amount < 1){
+            alert("Please enter a valid amount.");
+            return;
+        }
         setOrderItems((prev) => {
             const existingItemIndex = prev.findIndex(item => item.dish.id === selectedDish.id);
 
@@ -83,11 +87,6 @@ const Order = () => {
             return [...prev, { dish: selectedDish, amount, comment, price: selectedDish.price * amount }];
         });
         handleClose();
-    };
-    
-
-    const createOrder = () => {
-        navigate("/cart");
     };
 
     return (
@@ -120,30 +119,33 @@ const Order = () => {
                             </div>
                         </div>
                     ))}
-                    <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Add {selectedDish?.name} to Order</DialogTitle>
-                        <DialogContent>
-                            <div className="dialog-container">
-                                <div className="dialog-left">
-                                    <label>Amount:</label>
-                                    <label>Note:</label>
+                    <Dialog className="dialog-container" open={open} onClose={handleClose}>
+                            <DialogContent>
+                                <div><p className="dialog-title">Add {selectedDish?.name} to Order</p></div>
+                                <div className="dialog-content">
+                                    <div className="dialog-left">
+                                        <label>Amount:</label>
+                                        <label>Note:</label>
+                                    </div>
+                                    <div className="dialog-right">
+                                        <input
+                                            type="number"
+                                            value={amount}
+                                            min="1"
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                setAmount(value === "" ? "" : parseInt(value, 10));
+                                            }}
+                                        />
+                                        <textarea
+                                            placeholder="Add a comment (optional)"
+                                            value={comment}
+                                            onChange={(e) => setComment(e.target.value)}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="dialog-right">
-                                    <input
-                                        type="number"
-                                        value={amount}
-                                        min="1"
-                                        onChange={(e) => setAmount(parseInt(e.target.value) || 1)}
-                                    />
-                                    <textarea
-                                        placeholder="Add a comment (optional)"
-                                        value={comment}
-                                        onChange={(e) => setComment(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <button className="dialog-button" onClick={addDishToOrder}>Add to Order</button>
-                        </DialogContent>
+                                <button className="dialog-button" onClick={addDishToOrder}>Add to Order</button>
+                            </DialogContent>
                     </Dialog>
                 </div>
             )}

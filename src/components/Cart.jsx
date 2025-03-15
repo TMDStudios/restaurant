@@ -102,10 +102,10 @@ const Cart = () => {
             ) : (
                 <div>
                     {confirm ? (
-                        <Dialog open={open} onClose={handleClose}>
-                            <DialogTitle>Cancel Order?</DialogTitle>
+                        <Dialog className="dialog-container" open={open} onClose={handleClose}>
                             <DialogContent>
-                                <div className="dialog-container">
+                                <div><p className="dialog-title">Cancel Order?</p></div>
+                                <div className="dialog-content">
                                     <div>
                                         <p>Are you sure you want to cancel your current order?</p>
                                     </div>
@@ -117,10 +117,10 @@ const Cart = () => {
                             </DialogContent>
                         </Dialog>
                     ) : (
-                        <Dialog open={open} onClose={handleClose}>
-                            <DialogTitle>{dialogTitle}</DialogTitle>
+                        <Dialog className="dialog-container" open={open} onClose={handleClose}>
                             <DialogContent>
-                                <div className="dialog-container">
+                                <div><p className="dialog-title">{dialogTitle}</p></div>
+                                <div className="dialog-content">
                                     <div>
                                         <p>{dialogMessage}</p>
                                     </div>
