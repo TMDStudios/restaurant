@@ -12,7 +12,15 @@ If you'd like to discuss a custom website or need more information, feel free to
 
 >You can see the website here: https://tmdstudios.github.io/restaurant
 
-## Acknowledgements
+## License
+
+This project is licensed under the Apache License 2.0. See [LICENSE](https://github.com/TMDStudios/restaurant/blob/main/LICENSE) for details.
+
+## Attribution
+
+This project uses [OpenStreetMap](https://www.openstreetmap.org/) for map data.  
+Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/).
+
 
 - *restaurant1* - [Photo by Jason Leung](https://unsplash.com/@ninjason 'Jason Leung on Unsplash') on [Unsplash](https://unsplash.com/photos/photo-of-pub-set-in-room-during-daytime-poI7DelFiVA 'View on Unsplash')
 - *restaurant2* - [Photo by Jakub Kapusnak](https://unsplash.com/@foodiesfeed 'Jakub Kapusnak on Unsplash') on [Unsplash](https://unsplash.com/photos/multiple-dishes-field-bowls-on-table-4f4YZfDMLeU 'View on Unsplash')

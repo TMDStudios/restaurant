@@ -133,8 +133,6 @@ body {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .footer div {
@@ -159,6 +157,10 @@ body {
 .footer img{
   border: 1px solid rgba(0 0 0 / 0%);
   border-radius: 50%;
+}
+
+.copyright {
+  padding-top: 4px;
 }
 
 .menu, .order, .cart {
@@ -295,19 +297,6 @@ body {
   margin-bottom: 1rem;
 }
 
-.footer img:hover {
-  cursor: pointer;
-  border: 1px solid rgb(33 33 33);
-  border-radius: 50%;
-}
-
-.right-header p:hover {
-  cursor: pointer;
-  color: snow;
-  border: 1px solid rgb(33 33 33);
-  background-color: rgba(33 33 33 / 75%);
-}
-
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -409,6 +398,19 @@ body {
   border-radius: 4px;
 }
 
+.footer img:hover {
+  cursor: pointer;
+  border: 1px solid rgb(33 33 33);
+  border-radius: 50%;
+}
+
+.right-header p:hover {
+  cursor: pointer;
+  color: snow;
+  border: 1px solid rgb(33 33 33);
+  background-color: rgba(33 33 33 / 75%);
+}
+
 .dish-card:hover {
   cursor: pointer;
   border: 1px solid rgb(112 146 190);
@@ -420,7 +422,7 @@ body {
   border: 1px rgb(112 146 190) solid;
 }
 
-@media (max-width: 830px) {
+@media (width <= 830px) {
   body, html {
     min-width: 96vw;
     max-width: 96vw;
@@ -455,7 +457,7 @@ body {
 
   .mobile-menu {
     position: absolute;
-    top: -50vh;
+    top: -80vh;
     left: 0;
     width: 100%;
     height: fit-content;
@@ -590,5 +592,23 @@ body {
   
   .footer p {
     font-size: 0.8rem;
+  }
+}
+
+@media (width <= 1024px), (height <= 500px) {
+  .nav {
+    margin-bottom: 0.5rem;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .copyright {
+    padding: 0;
+  }
+  
+  .footer {
+    border-top: 1px solid rgba(112 146 190 / 10%);
   }
 }
