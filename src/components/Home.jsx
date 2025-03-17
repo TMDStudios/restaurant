@@ -1,16 +1,8 @@
-import { useEffect, useContext } from "react";
 import { useMediaQuery } from "react-responsive";
-import { MyContext } from "../App";
 import restaurant1 from "../assets/restaurant1.png";
 import restaurant2 from "../assets/restaurant2.png";
 
 const Home = () => {
-    const { handleCartButton } = useContext(MyContext);
-
-    useEffect(() => {
-        handleCartButton();
-    }, []);
-
     const isMobile = useMediaQuery({ maxWidth: 830 });
 
     return (

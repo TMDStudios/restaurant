@@ -9,21 +9,26 @@ import Footer from './components/Footer';
 import Cookies from "js-cookie";
 
 const MyContext = createContext();
-export {MyContext};
+export { MyContext };
 
 function App() {
-    const [orderItems, setOrderItems] = useState([]);
+    const [orderItems, setOrderItems] = useState(() => {
+        const savedOrderItems = Cookies.get("orderItems");
+        return savedOrderItems ? JSON.parse(savedOrderItems) : [];
+    });
+
+    useEffect(() => {
+        if(orderItems.length > 0){
+            Cookies.set("orderItems", JSON.stringify(orderItems), { expires: 1 });
+        }else{
+            Cookies.remove("orderItems");
+        }
+    }, [orderItems]);
 
     const handleCartButton = () => {
-        const savedOrderItems = Cookies.get("orderItems");
         const cartButton = document.getElementById('cart-button');
-
-        if(savedOrderItems){
-            setOrderItems(JSON.parse(savedOrderItems));
-        }
-
         if(cartButton){
-            if(savedOrderItems){
+            if(orderItems.length > 0){
                 cartButton.classList.add('cart-button');
             }else{
                 cartButton.classList.remove('cart-button');
@@ -31,22 +36,24 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        handleCartButton();
+    }, [orderItems]);
+
     return (
-        <>
-        <MyContext.Provider value={{orderItems, setOrderItems, handleCartButton}}>
+        <MyContext.Provider value={{ orderItems, setOrderItems, handleCartButton }}>
             <BrowserRouter basename="/restaurant">
                 <Nav />
                 <Routes>
-                    <Route path="/" element={<Home handleCartButton={handleCartButton}/>} />
-                    <Route path="/menu" element={<Menu handleCartButton={handleCartButton}/>} />
-                    <Route path="/order" element={<Order orderItems={orderItems} setOrderItems={setOrderItems} handleCartButton={handleCartButton}/>} />
-                    <Route path="/cart" element={<Cart orderItems={orderItems} setOrderItems={setOrderItems} handleCartButton={handleCartButton}/>} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/menu" element={<Menu />} />
+                    <Route path="/order" element={<Order />} />
+                    <Route path="/cart" element={<Cart />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>
         </MyContext.Provider>
-        </>
-    )
+    );
 }
 
-export default App
+export default App;

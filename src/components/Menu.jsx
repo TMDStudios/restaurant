@@ -1,17 +1,14 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
-import { MyContext } from '../App';
 
 const Menu = () => {
-    const {handleCartButton} = useContext(MyContext);
     const [dishes, setDishes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [categories] = useState(['Lunch Specials', 'Starters', 'Entrées', 'Desserts', 'Drinks']);
 
     useEffect(() => {
-        handleCartButton();
         setLoading(true);
         axios
             .get("https://alminpiric.pythonanywhere.com/api/dishes/get/")

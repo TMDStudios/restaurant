@@ -12,50 +12,56 @@ const Cart = () => {
     const [open, setOpen] = useState(false);
     const [clientIp, setClientIp] = useState("");
     const [loading, setLoading] = useState(false);
-    const [orderTotal, setOrderTotal] = useState(0);
     const [dialogTitle, setDialogTitle] = useState("");
     const [dialogMessage, setDialogMessage] = useState("");
     const [confirm, setConfirm] = useState(true);
 
+    const orderTotal = orderItems.reduce((sum, item) => sum + item.dish.price * item.amount, 0);
+
     useEffect(() => {
-        handleCartButton();
         axios.get("https://alminpiric.pythonanywhere.com/api/get_ip/")
             .then((response) => setClientIp(response.data.ip))
             .catch((error) => console.error("Error fetching IP:", error));
     }, []);
 
-    useEffect(() => {
-        const total = orderItems.reduce((sum, item) => sum + item.dish.price * item.amount, 0);
-        setOrderTotal(total);
-    }, [orderItems]);
-    
     const getConfirmation = _ => {
         setConfirm(true);
         handleOpen();
     }
 
-    const clearOrder = (cancelled=true) => {
+    const clearOrder = (cancelled = true) => {
         setConfirm(false);
         setOrderItems([]);
         Cookies.remove("orderItems");
-        document.getElementById('cart-button').classList.remove('cart-button');
+
+        const cartButton = document.getElementById('cart-button');
+        if(cartButton) cartButton.classList.remove('cart-button');
+        handleCartButton();
+
         if(cancelled){
             setDialogTitle("Order Cancelled");
             setDialogMessage("Your order has been cancelled.");
         }
-    }
+    };
 
     const handleOrder = _ => {
         setConfirm(false);
-        if(name.length < 2 || !/^\d{3}-\d{3}-\d{4}$/.test(phone)){
-            setDialogTitle("Invalid Name and/or Phone Number");
-            setDialogMessage("Please provide your name and phone number (xxx-xxx-xxxx).");
-        }else{
-            submitOrder();
-            setDialogTitle("Order Complete");
-            setDialogMessage("Thank you! Your order has been received.");
+        if(!/^[A-Za-z\s]{2,}$/.test(name.trim())){
+            setDialogTitle("Invalid Name");
+            setDialogMessage("Please enter a valid name (only letters and spaces, at least 2 characters).");
+            handleOpen();
+            return;
         }
-        handleOpen();
+
+        const sanitizedPhone = phone.trim().replace(/[\u2013\u2014\s]+/g, "-");
+        if(!/^\d{3}-\d{3}-\d{4}$/.test(sanitizedPhone)){
+            setDialogTitle("Invalid Phone Number");
+            setDialogMessage("Please enter a valid phone number in the format xxx-xxx-xxxx.");
+            handleOpen();
+            return;
+        }
+
+        submitOrder();
     }
 
     const handleOpen = _ => setOpen(true);
@@ -85,10 +91,16 @@ const Cart = () => {
                 console.log("Order created:", response.data);
                 clearOrder(false);
                 setLoading(false);
+                setDialogTitle("Order Complete");
+                setDialogMessage("Thank you! Your order has been received.");
+                handleOpen();
             })
             .catch((error) => {
                 console.error("Error creating order:", error);
                 setLoading(false);
+                setDialogTitle("Error");
+                setDialogMessage("There was a problem submitting your order. Please try again later.");
+                handleOpen();
             });
     };
 

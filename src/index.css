@@ -354,6 +354,12 @@ body {
   padding: 0.5rem;
 }
 
+.dialog-title {
+  font-size: 1.1rem;
+  padding-bottom: 0.75rem;
+  text-align: start;
+}
+
 .dialog-content {
   display: flex;
   justify-content: center;

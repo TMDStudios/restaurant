@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from 'react-router-dom'
 import axios from "axios";
-import { Dialog, DialogContent, DialogTitle, CircularProgress } from "@mui/material";
+import { Dialog, DialogContent, CircularProgress } from "@mui/material";
 import { MyContext } from '../App';
 import Cookies from "js-cookie";
 
@@ -23,14 +22,12 @@ const Order = () => {
     const [comment, setComment] = useState("");
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [confirm, setConfirm] = useState(true);
 
     const [categories] = useState(['Lunch Specials', 'Starters', 'Entrées', 'Desserts', 'Drinks']);
     const [images] = useState([bagel, bowl, bowl2, burger, cookies, eggs, pizza, salad, salmon]);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
-        handleCartButton();
         setLoading(true);
         axios
             .get("https://alminpiric.pythonanywhere.com/api/dishes/get/")
@@ -52,20 +49,24 @@ const Order = () => {
             Cookies.remove("orderItems");
             document.getElementById('cart-button').classList.remove('cart-button');
         }
+        handleCartButton();
     }, [orderItems]);
 
-    const handleOpen = (dish) => {
+    const validateDish = (dish) => {
+        setConfirm(false);
         setSelectedDish(dish);
         setAmount(1);
         setComment("");
-        setOpen(true);
-    };
+        handleOpen();
+    }
 
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const addDishToOrder = () => {
         if(!amount || amount < 1){
-            alert("Please enter a valid amount.");
+            setConfirm(true);
+            handleOpen();
             return;
         }
         setOrderItems((prev) => {
@@ -105,7 +106,7 @@ const Order = () => {
                                 {dishes
                                     .filter((dish) => dish.category && dish.category.trim().toLowerCase() === category.toLowerCase())
                                     .map((dish) => (
-                                        <div className="dish-card" key={dish.id} onClick={() => handleOpen(dish)}>
+                                        <div className="dish-card" key={dish.id} onClick={() => validateDish(dish)}>
                                             <div className="image-container">
                                                 <img src={images[dish.id % images.length]} alt="dish image" />
                                             </div>
@@ -119,7 +120,20 @@ const Order = () => {
                             </div>
                         </div>
                     ))}
-                    <Dialog className="dialog-container" open={open} onClose={handleClose}>
+                    {confirm ? (
+                        <Dialog className="dialog-container" open={open} onClose={handleClose}>
+                            <DialogContent>
+                                <div><p className="dialog-title">Invalid Amount</p></div>
+                                <div className="dialog-content">
+                                    <div>
+                                        <p>Please enter a valid amount.</p>
+                                    </div>
+                                </div>
+                                <button className="dialog-button" onClick={handleClose}>OK</button>
+                            </DialogContent>
+                        </Dialog>
+                    ) : (
+                        <Dialog className="dialog-container" open={open} onClose={handleClose}>
                             <DialogContent>
                                 <div><p className="dialog-title">Add {selectedDish?.name} to Order</p></div>
                                 <div className="dialog-content">
@@ -146,7 +160,8 @@ const Order = () => {
                                 </div>
                                 <button className="dialog-button" onClick={addDishToOrder}>Add to Order</button>
                             </DialogContent>
-                    </Dialog>
+                        </Dialog>
+                    )}
                 </div>
             )}
         </div>
