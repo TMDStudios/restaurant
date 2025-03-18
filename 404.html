@@ -7,7 +7,8 @@
 </head>
 <body>
     <script>
-        window.location.replace("/restaurant" + window.location.pathname);
+        const path = window.location.pathname.replace('/restaurant', '');
+        window.location.replace('/restaurant/?redirect=' + path);
     </script>
 </body>
 </html>
