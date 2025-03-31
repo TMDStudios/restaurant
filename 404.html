@@ -8,12 +8,7 @@
 <body>
     <script>
         const path = window.location.pathname.replace('/restaurant', '');
-        // window.location.replace('/restaurant/?redirect=' + path);
-        if(path === '/login' || path === '/admin/orders'){
-            window.location.replace('/restaurant' + path);
-        }else{
-            window.location.replace('/restaurant/?redirect=' + path);
-        }
+        window.location.replace('/restaurant/?redirect=' + path);
     </script>
 </body>
 </html>
