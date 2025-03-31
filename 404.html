@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404</title>
+    <title>Page Not Found</title>
+    <script>
+        // Redirect all 404s to the main index.html (only needed for BrowserRouter)
+        window.location.replace("/restaurant/#" + window.location.pathname);
+    </script>
 </head>
 <body>
-    <script>
-        const path = window.location.pathname.replace('/restaurant', '');
-        window.location.replace('/restaurant/?redirect=' + path);
-    </script>
+    <h1>Redirecting...</h1>
 </body>
 </html>
