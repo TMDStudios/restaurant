@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-
-        // Avoid redirecting if the path has already been redirected.
-        if (redirect && redirect !== location.pathname) {
-            history.replaceState(null, "", redirect);
-        }
-
-        // Redirect to the correct location, ensuring it's under /restaurant.
-        window.location.replace("/restaurant" + location.pathname + location.search + location.hash);
-    </script>
+    <title>404</title>
 </head>
 <body>
-    Redirecting...
+    <script>
+        const path = window.location.pathname.replace('/restaurant', '');
+        // window.location.replace('/restaurant/?redirect=' + path);
+        if(path === '/login' || path === '/admin/orders'){
+            window.location.replace('/restaurant' + path);
+        }else{
+            window.location.replace('/restaurant/?redirect=' + path);
+        }
+    </script>
 </body>
 </html>
